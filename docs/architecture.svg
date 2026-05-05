@@ -1,0 +1,145 @@
+<svg viewBox="0 0 900 580" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a"/>
+      <stop offset="100%" style="stop-color:#0d1520"/>
+    </linearGradient>
+    <linearGradient id="aws" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2a1a"/>
+      <stop offset="100%" style="stop-color:#0f1f0f"/>
+    </linearGradient>
+    <linearGradient id="vpc" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1a2e"/>
+      <stop offset="100%" style="stop-color:#0a1220"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#00ff88"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4da6ff"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="580" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#00ff88" font-size="13" font-weight="bold" filter="url(#glow)" letter-spacing="3">DAMOLAK CHALLENGE — PRODUCTION ARCHITECTURE</text>
+  <line x1="80" y1="42" x2="820" y2="42" stroke="#00ff88" stroke-width="0.5" stroke-opacity="0.4"/>
+
+  <!-- GitHub / CI Block -->
+  <rect x="30" y="58" width="160" height="100" rx="6" fill="#1a1a2e" stroke="#4da6ff" stroke-width="1.2"/>
+  <text x="110" y="78" text-anchor="middle" fill="#4da6ff" font-size="10" font-weight="bold" letter-spacing="1">GITHUB</text>
+  <rect x="45" y="86" width="130" height="20" rx="3" fill="#0d1520" stroke="#4da6ff" stroke-width="0.6"/>
+  <text x="110" y="100" text-anchor="middle" fill="#aad4ff" font-size="9">Push to main</text>
+  <rect x="45" y="112" width="130" height="20" rx="3" fill="#0d1520" stroke="#4da6ff" stroke-width="0.6"/>
+  <text x="110" y="126" text-anchor="middle" fill="#aad4ff" font-size="9">GitHub Actions (OIDC)</text>
+  <rect x="45" y="138" width="130" height="14" rx="3" fill="#0d1520" stroke="#4da6ff" stroke-width="0.6"/>
+  <text x="110" y="149" text-anchor="middle" fill="#aad4ff" font-size="8">Test → Build → Deploy</text>
+
+  <!-- Arrow: GitHub → AWS -->
+  <line x1="190" y1="108" x2="250" y2="108" stroke="#4da6ff" stroke-width="1.5" marker-end="url(#arrow-blue)" stroke-dasharray="5,3"/>
+
+  <!-- AWS Cloud boundary -->
+  <rect x="250" y="55" width="620" height="505" rx="10" fill="url(#aws)" stroke="#ff9900" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="268" y="74" fill="#ff9900" font-size="10" font-weight="bold" letter-spacing="2">AWS CLOUD  (us-east-1)</text>
+
+  <!-- ECR -->
+  <rect x="270" y="82" width="120" height="50" rx="5" fill="#1a1000" stroke="#ff9900" stroke-width="1"/>
+  <text x="330" y="101" text-anchor="middle" fill="#ff9900" font-size="9" font-weight="bold">ECR</text>
+  <text x="330" y="116" text-anchor="middle" fill="#ffcc80" font-size="8">damolak-api</text>
+  <text x="330" y="126" text-anchor="middle" fill="#ffcc80" font-size="8">:latest / :sha</text>
+
+  <!-- Arrow: ECR → ECS -->
+  <line x1="390" y1="107" x2="430" y2="107" stroke="#ff9900" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="4,2"/>
+
+  <!-- Internet user -->
+  <rect x="270" y="200" width="120" height="40" rx="5" fill="#1a001a" stroke="#cc44ff" stroke-width="1"/>
+  <text x="330" y="218" text-anchor="middle" fill="#cc44ff" font-size="9" font-weight="bold">INTERNET</text>
+  <text x="330" y="232" text-anchor="middle" fill="#e090ff" font-size="8">HTTP :80</text>
+
+  <!-- Arrow: Internet → ALB -->
+  <line x1="390" y1="220" x2="430" y2="220" stroke="#cc44ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- VPC boundary -->
+  <rect x="430" y="78" width="420" height="450" rx="8" fill="url(#vpc)" stroke="#4da6ff" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="448" y="96" fill="#4da6ff" font-size="9" letter-spacing="2">VPC  10.0.0.0/16</text>
+
+  <!-- Public Subnets box -->
+  <rect x="445" y="102" width="390" height="90" rx="5" fill="#0a1530" stroke="#4da6ff" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <text x="460" y="118" fill="#4da6ff" font-size="8" letter-spacing="1">PUBLIC SUBNETS  (us-east-1a / 1b)</text>
+
+  <!-- ALB -->
+  <rect x="460" y="125" width="340" height="55" rx="5" fill="#101828" stroke="#ff9900" stroke-width="1.2"/>
+  <text x="630" y="145" text-anchor="middle" fill="#ff9900" font-size="10" font-weight="bold">APPLICATION LOAD BALANCER</text>
+  <text x="630" y="160" text-anchor="middle" fill="#ffcc80" font-size="8">Health check: /health  |  Target: port 8000</text>
+  <text x="630" y="172" text-anchor="middle" fill="#ffcc80" font-size="8">Multi-AZ  |  SG: allow 0.0.0.0/0:80</text>
+
+  <!-- Arrow: ALB → ECS tasks -->
+  <line x1="630" y1="192" x2="630" y2="230" stroke="#00ff88" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Private Subnets box -->
+  <rect x="445" y="200" width="390" height="200" rx="5" fill="#081018" stroke="#00ff88" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <text x="460" y="218" fill="#00ff88" font-size="8" letter-spacing="1">PRIVATE SUBNETS  (us-east-1a / 1b)</text>
+
+  <!-- ECS Cluster -->
+  <rect x="460" y="225" width="360" height="155" rx="5" fill="#0a1a0a" stroke="#00ff88" stroke-width="1"/>
+  <text x="640" y="244" text-anchor="middle" fill="#00ff88" font-size="10" font-weight="bold">ECS FARGATE CLUSTER</text>
+
+  <!-- Task 1 -->
+  <rect x="470" y="252" width="155" height="115" rx="4" fill="#0d1a0d" stroke="#00cc66" stroke-width="0.8"/>
+  <text x="547" y="270" text-anchor="middle" fill="#00cc66" font-size="8" font-weight="bold">TASK (AZ-1a)</text>
+  <rect x="480" y="276" width="135" height="18" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="547" y="289" text-anchor="middle" fill="#88ff99" font-size="8">FastAPI  :8000</text>
+  <rect x="480" y="300" width="135" height="15" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="547" y="311" text-anchor="middle" fill="#88ff99" font-size="7">256 CPU / 512 MB</text>
+  <rect x="480" y="320" width="135" height="15" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="547" y="331" text-anchor="middle" fill="#88ff99" font-size="7">Non-root user</text>
+  <rect x="480" y="340" width="135" height="20" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="547" y="354" text-anchor="middle" fill="#88ff99" font-size="7">Healthcheck /health</text>
+
+  <!-- Task 2 -->
+  <rect x="645" y="252" width="155" height="115" rx="4" fill="#0d1a0d" stroke="#00cc66" stroke-width="0.8"/>
+  <text x="722" y="270" text-anchor="middle" fill="#00cc66" font-size="8" font-weight="bold">TASK (AZ-1b)</text>
+  <rect x="655" y="276" width="135" height="18" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="722" y="289" text-anchor="middle" fill="#88ff99" font-size="8">FastAPI  :8000</text>
+  <rect x="655" y="300" width="135" height="15" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="722" y="311" text-anchor="middle" fill="#88ff99" font-size="7">256 CPU / 512 MB</text>
+  <rect x="655" y="320" width="135" height="15" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="722" y="331" text-anchor="middle" fill="#88ff99" font-size="7">Non-root user</text>
+  <rect x="655" y="340" width="135" height="20" rx="3" fill="#060f06" stroke="#00cc66" stroke-width="0.5"/>
+  <text x="722" y="354" text-anchor="middle" fill="#88ff99" font-size="7">Healthcheck /health</text>
+
+  <!-- Arrow tasks → CloudWatch -->
+  <line x1="547" y1="367" x2="547" y2="420" stroke="#aaaaaa" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="3,2"/>
+  <line x1="722" y1="367" x2="722" y2="420" stroke="#aaaaaa" stroke-width="1" marker-end="url(#arrow)" stroke-dasharray="3,2"/>
+
+  <!-- CloudWatch / Monitoring -->
+  <rect x="460" y="420" width="360" height="70" rx="5" fill="#181010" stroke="#ff6644" stroke-width="1"/>
+  <text x="640" y="440" text-anchor="middle" fill="#ff6644" font-size="10" font-weight="bold">CLOUDWATCH</text>
+  <text x="640" y="456" text-anchor="middle" fill="#ffaa88" font-size="8">Container Insights  |  Log group: /ecs/damolak-challenge</text>
+  <text x="640" y="470" text-anchor="middle" fill="#ffaa88" font-size="8">Alarm: CPUUtilization &gt; 80%  |  Retention: 30 days</text>
+  <text x="640" y="482" text-anchor="middle" fill="#ffaa88" font-size="8">Streams: stdout/stderr via awslogs driver</text>
+
+  <!-- NAT GW note -->
+  <rect x="445" y="500" width="390" height="28" rx="4" fill="#0a0a18" stroke="#4da6ff" stroke-width="0.5"/>
+  <text x="640" y="519" text-anchor="middle" fill="#7799cc" font-size="8">NAT Gateway (public subnet) — outbound for private tasks  |  IAM OIDC — no long-lived keys</text>
+
+  <!-- Legend -->
+  <line x1="30" y1="540" x2="820" y2="540" stroke="#333" stroke-width="0.5"/>
+  <rect x="30" y="550" width="10" height="8" fill="none" stroke="#ff9900" stroke-width="1"/>
+  <text x="46" y="558" fill="#aaa" font-size="8">AWS Service</text>
+  <rect x="120" y="550" width="10" height="8" fill="none" stroke="#00ff88" stroke-width="1"/>
+  <text x="136" y="558" fill="#aaa" font-size="8">Compute / Private</text>
+  <rect x="240" y="550" width="10" height="8" fill="none" stroke="#4da6ff" stroke-width="1"/>
+  <text x="256" y="558" fill="#aaa" font-size="8">Network / VPC</text>
+  <line x1="340" y1="554" x2="360" y2="554" stroke="#4da6ff" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow-blue)"/>
+  <text x="366" y="558" fill="#aaa" font-size="8">CI/CD flow</text>
+  <line x1="450" y1="554" x2="470" y2="554" stroke="#00ff88" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="476" y="558" fill="#aaa" font-size="8">Traffic flow</text>
+  <text x="820" y="558" text-anchor="end" fill="#444" font-size="7">Chibuike Obi — Damolak Technologies Challenge 2026</text>
+</svg>
